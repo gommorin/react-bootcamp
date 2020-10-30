@@ -3,7 +3,8 @@ import './App.css';
 
 // Components
 import Greet from './components/Greet';
-import Counter from './components/Counter'
+import Counter from './components/Counter';
+import ToggleColor from './components/ToggleColor';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       </header>
       <Greet name='Lucho'/>
       <Counter />
+      <ToggleColor />
     </div>
   );
 }
