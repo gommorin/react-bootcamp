@@ -14,7 +14,7 @@ class Counter extends Component {
   componentDidMount() {
     console.log('componente montado')
     this.setState({
-      counter: 1,
+      counter: 0,
     })
   }
 
@@ -22,18 +22,32 @@ class Counter extends Component {
     console.log("componente se actualizó")
   }
 
-  clickHandler() {
-    let { counter } = this.state;
-    this.setState({
-      counter: counter + 1,
-    })
-  }
+  // clickHandler() {
+  //   let { counter } = this.state;
+  //   this.setState({
+  //     counter: counter + 1,
+  //   })
+  // }
 
-  clickHandlerRest() {
+  // clickHandlerRest() {
+  //   let { counter } = this.state;
+  //   this.setState({
+  //     counter: counter - 1,
+  //   })
+  // }
+
+  // PARA HACER LA OPERACION EN UN MISMO MÉTODO //
+
+  clickHandler(operator) {
     let { counter } = this.state;
+    if (operator === 'add') {
+      counter++;
+    } else {
+      counter--;
+    }
     this.setState({
-      counter: counter - 1,
-    })
+      counter,
+    });
   }
 
   // ETAPA DE MONTAJE
@@ -42,8 +56,10 @@ class Counter extends Component {
     return (
       <div>
         <h2>Counter: {this.state.counter}</h2>
-        <button onClick={() => this.clickHandler()}>ADD</button>
-        <button onClick={() => this.clickHandler()}>REST</button>
+        {/* <button onClick={() => this.clickHandler()}>SUMA</button>
+        <button onClick={() => this.clickHandlerRest()}>RESTA</button> */}
+        <button onClick={() => this.clickHandler('add')}>SUMA</button>
+        <button onClick={() => this.clickHandler()}>RESTA</button>
       </div>
     )
   }
