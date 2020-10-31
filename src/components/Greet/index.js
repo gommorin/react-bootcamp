@@ -25,7 +25,7 @@ class Greet extends Component {
 
 function Greet(props) {
     return (
-        <h1 className={'heading'}>
+        <h1>
             {`Hola ${props.name}`}
         </h1>
     )
