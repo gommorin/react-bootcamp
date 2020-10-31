@@ -5,7 +5,7 @@ import './App.css';
 import Greet from './components/Greet';
 import Counter from './components/Counter';
 import ToggleColor from './components/ToggleColor';
-
+import Koders from './components/Koders';
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
       <Greet name='Lucho'/>
       <Counter />
       <ToggleColor />
+      <Koders />
     </div>
   );
 }
