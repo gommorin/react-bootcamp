@@ -134,3 +134,6 @@ export default Koders;
 //     )
 //   })
 // }
+
+
+// TAREA: FILTRAR LOS KODERS QUE TIENEN MÁS DE 3 HOBBIES
