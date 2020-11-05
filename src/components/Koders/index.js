@@ -101,7 +101,6 @@ export default Koders;
 
 // EJERCICIO: AGREGAR AL CÓDIGO LOS HOBBIES
 
-
 // SOLUCION DE MAURO
 // renderKoders() {
 //   return this.state.koders.map(koder => {
