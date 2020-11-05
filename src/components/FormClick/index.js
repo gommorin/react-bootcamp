@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 
 // CSS //
-import './Form.css'
+import './FormClick.css'
 
 // FORMULARIO PARA CAMBIO DE DIVISAS ENTRE PESOS Y DOLARES //
 class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      isActive: false,
       MXN: '',
       USD: ''
     }
@@ -15,9 +16,8 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this) // ---------> QUÉ ES ESTO???
   }
 
-  handleChange({target: {value}}) {
+  handleChange() {
     this.setState({
-      MXN: value,
       USD: value / 21.6
     })
   }
@@ -26,7 +26,7 @@ class Form extends Component {
     const {MXN, USD} = this.state
     return <div>
       <form>
-        <input type='number' value={MXN} placeholder="MXN $" onChange={this.handleChange} />
+        <input type='number' placeholder="MXN $"/>        <button>Cambiar a USD</button>
       </form>
       <p>USD: ${USD}</p>
     </div>

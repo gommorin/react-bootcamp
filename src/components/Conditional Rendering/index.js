@@ -9,9 +9,7 @@ import React, { Component } from 'react'
 //   }
 
 //   render() {
-
 //     const { isActive } = this.props
-
 //     return <div>
 //       {
 //         (isActive? <h1>Activo</h1> : <h1>Inactivo</h1>)
