@@ -1,0 +1,12 @@
+.item {
+  list-style: none;
+}
+
+.item:hover {
+  cursor: pointer;
+  color: coral;
+}
+
+.active {
+  color: coral;
+}

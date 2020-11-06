@@ -11,6 +11,7 @@ import CondRend2 from './components/CondRend2'
 // import KodersActive from './components/Koders Active'
 import Form from './components/Form'
 import FormClick from './components/FormClick'
+import ListActive from './components/ListActive'
 
 function App() {
   return (
@@ -18,10 +19,12 @@ function App() {
       <header className="App-header">
         <Form />
         <FormClick />
-        <ConditionalRendering />
-        <CondRend2 />
+        <ListActive />
       </header>
-      {/* <Greet name='Lucho'/>
+      {/*
+      <ConditionalRendering />
+      <CondRend2 />
+      <Greet name='Lucho'/>
       <Counter />
       <ToggleColor />
       <Koders />
