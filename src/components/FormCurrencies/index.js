@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
 // CSS //
-import './FormClick.css'
+import './FormClickUSD.css'
 
-class FormClick extends Component {
+class FormCurrencies extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,4 +47,4 @@ class FormClick extends Component {
   }
 }
 
-export default FormClick
+export default FormCurrencies
