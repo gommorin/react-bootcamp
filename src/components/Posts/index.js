@@ -42,24 +42,7 @@ class Posts extends Component {
     }
   }
 
-  renderPosts() {
-    return this.state.posts.map(({ title, subheading, author, category, date }) => {
-      return (
-        <li>{title},{subheading},{author},{category},{date}</li>
-      );
-    });
-  }
-
-  render() {
-    console.log("render", this.state.posts)
-    return (
-      <div>
-        <ul>
-          {this.renderPosts}
-        </ul>
-      </div>
-    )
-  }
+  
 }
 
 export default Posts;

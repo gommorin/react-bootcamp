@@ -1,36 +1,74 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-// CSS //
-import './Form.css'
-
-// FORMULARIO PARA CAMBIO DE DIVISAS ENTRE PESOS Y DOLARES //
 class Form extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      MXN: '',
-      USD: ''
-    }
+      MXNQuantity: 0,
+      USDQuantity: 0,
+    };
 
-    this.handleChange = this.handleChange.bind(this) // ---------> QUÉ ES ESTO???
+    this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
   }
 
-  handleChange({target: {value}}) {
+  componentDidMount() {
+    const MXNQuantityInMemory = Number(localStorage.getItem("MXNQuantity"));
+    if (MXNQuantityInMemory) {
+      this.setState({
+        MXNQuantity: MXNQuantityInMemory,
+        USDQuantity: MXNQuantityInMemory / 21.6,
+      });
+    }
+  }
+
+  handleCurrencyChange({ target: { value, name } }) {
+    let MXNCurrentQuantity;
+    let USDCurrentQuantity;
+
+    if (name === "MXNQuantity") {
+      MXNCurrentQuantity = value;
+      USDCurrentQuantity = value / 21.6;
+    } else {
+      MXNCurrentQuantity = value * 21.6;
+      USDCurrentQuantity = value;
+    }
+
+    localStorage.setItem("MXNQuantity", String(MXNCurrentQuantity));
     this.setState({
-      MXN: value,
-      USD: value / 21.6
-    })
+      MXNQuantity: MXNCurrentQuantity,
+      USDQuantity: USDCurrentQuantity,
+    });
   }
 
   render() {
-    const {MXN, USD} = this.state
-    return <div>
-      <form>
-        <input type='number' value={MXN} placeholder="MXN $" onChange={this.handleChange} />
-      </form>
-      <p>USD: ${USD}</p>
-    </div>
+    const { MXNQuantity, USDQuantity } = this.state;
+    return (
+      <div>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+          onSubmit={this.handleSubmit}
+        >
+          MXN:{" "}
+          <input
+            type="number"
+            value={MXNQuantity}
+            onChange={this.handleCurrencyChange}
+            name="MXNQuantity"
+          />
+          USD:{" "}
+          <input
+            type="number"
+            value={USDQuantity}
+            onChange={this.handleCurrencyChange}
+            name="USDQuantity"
+          />
+        </form>
+      </div>
+    );
   }
 }
 
-export default Form
+export default Form;

@@ -1,138 +1,134 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-// CSS //
-import './Koders.css'
+// Components
+import CustomInput from "../CustomInput";
+
+// CSS
+import "./Koders.css";
 
 const KODERS_JSON = [
   {
-    name: 'Axel', // --------> dato tipo string
-    age: 31, // --------> dato tipo número
-    hobbies: ['play', 'drink', 'surf', 'walk pets', 'netflix'] // --------> dato tipo array de strings
+    name: "Axel",
+    age: 31,
+    hobbies: ["Videogames", "Drink every day"],
   },
   {
-    name: 'Ivan',
+    name: "Ivan",
     age: 29,
-    hobbies: ['basket','chess','videogames']
+    hobbies: ["Basketball", "Chess", "Videojuegos"],
   },
   {
-    name: 'Luis',
+    name: "Luis",
     age: 34,
-    hobbies: ['money', 'pets', 'social media', 'esports']
-  }
-]
-
+    hobbies: ["Money money", "Pets", "Social media"],
+  },
+];
 
 class Koders extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      koders: [] // ---------> es un array de objetos porque voy a manejar un JSON
-    }
+      koders: [],
+      koderName: "",
+      koderAge: "",
+    };
+
+    this.handlerNewKoderChange = this.handlerNewKoderChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    console.log('server mounted')
-    console.log('Sender Request');
-    setTimeout(() => {
+    let kodersInMemory = localStorage.getItem("koders");
+    if (kodersInMemory) {
       this.setState({
-        koders: KODERS_JSON,
-      })
-    }, 2000)
-    console.log('Sender Response');
+        koders: JSON.parse(kodersInMemory),
+      });
+    } else {
+      setTimeout(() => {
+        localStorage.setItem("koders", JSON.stringify(KODERS_JSON));
+        this.setState({
+          koders: KODERS_JSON,
+        });
+      }, 5000);
+    }
   }
 
-  // CLASE
-  // renderKoders() {
-  //   return this.state.koders.map(koder => {
-  //     return (
-  //       <li>
-  //         {koder.name}, {koder.age} años
-  //       </li>
-  //     )
-  //   })
-  // }
-
-  // EJERCICIO SOLUCION MAURO
-  // renderKoders() {
-  //   return this.state.koders.map(koder => {
-  //     let koderHobbies = koder.hobbies.map(hobby => {
-  //       return <li>{hobby}</li>
-  //     })
-  //     return (
-  //       <li>
-  //         {koder.name}, {koder.age} años
-  //         <ul>
-  //           {koderHobbies}
-  //         </ul>
-  //       </li>
-  //     )
-  //   })
-  // }
-
-  // EJERCICIO SOLUCION DAVID
   renderKoders() {
-    return this.state.koders.map(({name, age, hobbies}) => { // -----------> deconstruye objeto koder
+    return this.state.koders.map(({ name, age, hobbies }) => {
       return (
         <li>
           {name}, {age} años
           <ul>
-            {hobbies.map((hobby) => (
-              <li>{hobby}</li>
-            ))}
+            {hobbies.map((hobbie) => {
+              return <li>{hobbie}</li>;
+            })}
           </ul>
         </li>
-      )
-    })
+      );
+    });
+  }
+
+  handlerNewKoderChange(name, value) {
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    let { koders, koderName, koderAge } = this.state;
+    const newKoder = {
+      name: koderName,
+      age: koderAge,
+      hobbies: [],
+    };
+    let kodersInMemory = JSON.parse(localStorage.getItem("koders"));
+    kodersInMemory.push(newKoder);
+    localStorage.setItem("koders", JSON.stringify(kodersInMemory));
+    koders.push(newKoder);
+    this.setState({
+      koders,
+      koderName: "",
+      koderAge: "",
+    });
   }
 
   render() {
-    console.log("render", this.state.koders)
+    const { koders, koderName, koderAge } = this.state;
     return (
       <div>
-        <ul>
-          {this.renderKoders()}
-        </ul>
+        {koders.length ? (
+          <ul>{this.renderKoders()}</ul>
+        ) : (
+          <h1>No hay Koders</h1>
+        )}
+        <form onSubmit={this.handleSubmit}>
+          Name:{" "}
+          <CustomInput
+            type="text"
+            value={koderName}
+            name="koderName"
+            callback={this.handlerNewKoderChange}
+          />
+          Age:{" "}
+          <CustomInput
+            type="text"
+            value={koderAge}
+            name="koderAge"
+            callback={this.handlerNewKoderChange}
+          />
+          Hobbies:{" "}
+          <CustomInput
+            type="text"
+            value={koderAge}
+            name="koderAge"
+            callback={this.handlerNewKoderChange}
+          />
+          <button type="submit">Crear Koder</button>
+        </form>
       </div>
-    )
+    );
   }
 }
 
 export default Koders;
-
-// EJERCICIO: AGREGAR AL CÓDIGO LOS HOBBIES
-
-// SOLUCION DE MAURO
-// renderKoders() {
-//   return this.state.koders.map(koder => {
-//     let koderHobbies = koder.hobbies.map(hobby => {
-//       return <li>{koder.hobby}</li>
-//     })
-//     return (
-//       <li>
-//         {koder.name}, {koder.age} años
-//         <ul>
-//           {koder.hobby}
-//         </ul>
-//       </li>
-//     )
-//   })
-// }
-
-// SOLUCION DE DAVID
-// renderKoders() {
-//   return this.state.koders.map(({name, age, hobbies}) => { // -----------> deconstruye objeto koder
-//     return (
-//       <li>
-//         {name}, {age} años
-//         <ul>
-//           {hobbies.map((hobby) => {
-//             <li>{hobby}</li>
-//           })}
-//         </ul>
-//       </li>
-//     )
-//   })
-// }
-
-
-// TAREA: FILTRAR LOS KODERS QUE TIENEN MÁS DE 3 HOBBIES
